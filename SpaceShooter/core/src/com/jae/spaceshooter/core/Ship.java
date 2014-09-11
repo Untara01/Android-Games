@@ -1,19 +1,27 @@
 package com.jae.spaceshooter.core;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
-public class Ship extends Sprite
+public class Ship extends jSprite
 {
-	public Ship(Sprite sprite)
+	public float Speed;
+	
+	public Ship(jSprite sprite)
 	{
 		super(sprite);
 	}
 	
-	@Override
-	public void draw(Batch batch)
+	public Vector2 getSpeedFromRotation(float elapsedTime)
 	{
-		batch.draw(this.getTexture(), this.getX() - this.getOriginX(), this.getY() - this.getOriginY(), this.getWidth(), this.getHeight(), 0, 0, (int)this.getWidth(), (int)this.getHeight(), false, false);
+		Vector2 speed = new Vector2((float)Math.cos(this.Rotation), (float)Math.sin(this.Rotation));
+		speed.x *= this.Speed * elapsedTime;
+		speed.y *= this.Speed * elapsedTime;
+		
+		return speed;
+	}
+	
+	public void move(float x, float y)
+	{
+		this.Position = new Vector2(this.Position.x + x, this.Position.y + y);
 	}
 }

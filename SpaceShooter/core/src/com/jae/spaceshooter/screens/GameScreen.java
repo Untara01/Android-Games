@@ -2,13 +2,15 @@ package com.jae.spaceshooter.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.jae.spaceshooter.SpaceShooter;
 import com.jae.spaceshooter.core.Ship;
+import com.jae.spaceshooter.core.jSprite;
 
 public class GameScreen implements Screen
 {
@@ -44,9 +46,9 @@ public class GameScreen implements Screen
 	{
 		this.game = game;
 		
-		this.Ship1 = new Ship(new Sprite(this.shipYellow));
-		this.Ship1.setPosition(400, 240);
-		this.Ship1.setOrigin(32, 32);
+		this.Ship1 = new Ship(new jSprite(this.shipYellow));
+		this.Ship1.Position = new Vector2(400, 240);
+		this.Ship1.Origin = new Vector2(32, 32);
 		
 		this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, 800, 480);
@@ -61,7 +63,23 @@ public class GameScreen implements Screen
 	
 	public void Update()
 	{
+		float deltaTime = Gdx.graphics.getDeltaTime();
 		
+		if(Gdx.input.isKeyPressed(Keys.LEFT))
+		{
+			this.Ship1.Rotation += deltaTime;
+		}
+		if(Gdx.input.isKeyPressed(Keys.RIGHT))
+		{
+			this.Ship1.Rotation += -deltaTime;
+		}
+		if(Gdx.input.isKeyPressed(Keys.UP))
+		{
+			this.Ship1.Speed += 0.1f;
+		}
+		
+		Vector2 speed = this.Ship1.getSpeedFromRotation(deltaTime * this.Ship1.Speed);
+		this.Ship1.move(speed.x, speed.y);
 	}
 	
 	public void Draw()
@@ -73,7 +91,7 @@ public class GameScreen implements Screen
         this.game.batch.setProjectionMatrix(this.camera.combined);
         
         this.game.batch.begin();
-        this.Ship1.draw(this.game.batch);
+        this.Ship1.Draw(this.game.batch);
         this.game.batch.end();
 	}
 
