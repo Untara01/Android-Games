@@ -17,19 +17,19 @@ public class GameScreen implements Screen
 	//----------Assets----------\\
 	
 	//-----Team Yellow-----\\
-	private Texture shipYellow = new Texture(Gdx.files.internal("teamYellow/ship.png"));
+	private Texture shipYellow = new Texture(Gdx.files.internal("TeamYellow/ship.png"));
 	//---End Team Yellow---\\
 	
 	//-------Team Red------\\
-	private Texture shipRed = new Texture(Gdx.files.internal("teamRed/ship.png"));
+	private Texture shipRed = new Texture(Gdx.files.internal("TeamRed/ship.png"));
 	//-----End Team Red----\\
 
 	//------Team Blue------\\
-	private Texture shipBlue = new Texture(Gdx.files.internal("teamBlue/ship.png"));
+	private Texture shipBlue = new Texture(Gdx.files.internal("TeamBlue/ship.png"));
 	//----End Team Blue----\\
 
 	//------Team Green-----\\
-	private Texture shipGreen = new Texture(Gdx.files.internal("teamGreen/ship.png"));
+	private Texture shipGreen = new Texture(Gdx.files.internal("TeamGreen/ship.png"));
 	//----End Team Green---\\
 	
 	//--------End Assets--------\\
