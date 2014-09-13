@@ -96,7 +96,16 @@ public class jSprite
 
     public void Draw(SpriteBatch batch)
     {
-    	batch.draw(this.Texture, this.Position.x, this.Position.y, this.Origin.x, this.Origin.y, this.Texture.getWidth(), this.Texture.getHeight(), this.Scale.x, this.Scale.y, (float)Math.toDegrees(this.Rotation) - 90, 0, 0, this.Texture.getWidth(), this.Texture.getHeight(), false, false);
+    	batch.draw(this.Texture, 
+    			this.Position.x - this.Origin.x, this.Position.y - this.Origin.y, this.Origin.x, this.Origin.y, 
+    			this.Texture.getWidth(), this.Texture.getHeight(), this.Scale.x, this.Scale.y, 
+    			(float)Math.toDegrees(this.Rotation) - 90, 0, 0, 
+    			this.Texture.getWidth(), this.Texture.getHeight(), false, false);
+    }
+    
+    public void Update() 
+    {
+    	this.Move(this.Speed.x, this.Speed.y);
     }
     
     //Intersection algorithms
@@ -126,4 +135,13 @@ public class jSprite
 
         return this.DoesIntersect(vectorBox);
     }
+	
+	public Vector2 getSpeedFromRotation(float elapsedTime, float iSpeed)
+	{
+		Vector2 speed = new Vector2((float)Math.cos(this.Rotation), (float)Math.sin(this.Rotation));
+		speed.x *= elapsedTime * iSpeed;
+		speed.y *= elapsedTime * iSpeed;
+		
+		return speed;
+	}
 }

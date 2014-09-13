@@ -20,18 +20,22 @@ public class GameScreen implements Screen
 	
 	//-----Team Yellow-----\\
 	private Texture shipYellow = new Texture(Gdx.files.internal("TeamYellow/ship.png"));
+	private Texture laserYellow = new Texture(Gdx.files.internal("TeamYellow/laser.png"));
 	//---End Team Yellow---\\
 	
 	//-------Team Red------\\
 	private Texture shipRed = new Texture(Gdx.files.internal("TeamRed/ship.png"));
+	private Texture laserRed = new Texture(Gdx.files.internal("TeamRed/laser.png"));
 	//-----End Team Red----\\
 
 	//------Team Blue------\\
 	private Texture shipBlue = new Texture(Gdx.files.internal("TeamBlue/ship.png"));
+	private Texture laserBlue = new Texture(Gdx.files.internal("TeamBlue/laser.png"));
 	//----End Team Blue----\\
 
 	//------Team Green-----\\
 	private Texture shipGreen = new Texture(Gdx.files.internal("TeamGreen/ship.png"));
+	private Texture laserGreen = new Texture(Gdx.files.internal("TeamGreen/laser.png"));
 	//----End Team Green---\\
 	
 	//--------End Assets--------\\
@@ -46,9 +50,8 @@ public class GameScreen implements Screen
 	{
 		this.game = game;
 		
-		this.Ship1 = new Ship(new jSprite(this.shipYellow));
+		this.Ship1 = new Ship(new jSprite(this.shipYellow), this.laserYellow);
 		this.Ship1.Position = new Vector2(400, 240);
-		this.Ship1.Origin = new Vector2(32, 32);
 		
 		this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, 800, 480);
@@ -65,21 +68,7 @@ public class GameScreen implements Screen
 	{
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
-		if(Gdx.input.isKeyPressed(Keys.LEFT))
-		{
-			this.Ship1.Rotation += deltaTime;
-		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT))
-		{
-			this.Ship1.Rotation += -deltaTime;
-		}
-		if(Gdx.input.isKeyPressed(Keys.UP))
-		{
-			this.Ship1.Speed += 0.1f;
-		}
-		
-		Vector2 speed = this.Ship1.getSpeedFromRotation(deltaTime * this.Ship1.Speed);
-		this.Ship1.move(speed.x, speed.y);
+		this.Ship1.UpdateShip(deltaTime);
 	}
 	
 	public void Draw()
@@ -91,7 +80,7 @@ public class GameScreen implements Screen
         this.game.batch.setProjectionMatrix(this.camera.combined);
         
         this.game.batch.begin();
-        this.Ship1.Draw(this.game.batch);
+        this.Ship1.DrawShip(this.game.batch);
         this.game.batch.end();
 	}
 
