@@ -1,6 +1,7 @@
 package com.jae.spaceshooter;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jae.spaceshooter.screens.MainMenuScreen;
@@ -9,6 +10,8 @@ public class SpaceShooter extends Game
 {
 	public SpriteBatch batch;
 	public BitmapFont font;
+	public static int height = 480;
+	public static int width = 800;
 	
 	@Override
 	public void create () 

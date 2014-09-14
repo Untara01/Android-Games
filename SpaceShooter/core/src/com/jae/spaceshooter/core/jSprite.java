@@ -12,7 +12,7 @@ public class jSprite
     public float Rotation; //radians
     public Vector2 Speed;
     public float RotationalVelocity;
-
+    
     public Texture Texture;
     public Color Tint;
     public Vector2 Scale;
