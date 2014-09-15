@@ -121,7 +121,7 @@ public class Ship extends jSprite
 		
 		for(int i = 0; i < 5; i++)
 		{
-			if(Gdx.input.isTouched(i) && Gdx.input.getX(i) > Gdx.graphics.getWidth() / 2)
+			if(TouchHandler.GetData().get(i).isDown && TouchHandler.GetData().get(i).x > SpaceShooter.width / 2)
 			{
 				touchInt = i;
 			}
@@ -129,7 +129,7 @@ public class Ship extends jSprite
 		
 		if(touchInt != -1)
 		{
-			if(Gdx.input.isTouched(touchInt) && this.ShotTimer > this.ShotInterval)
+			if(TouchHandler.GetData().get(touchInt).isDown && this.ShotTimer > this.ShotInterval)
 			{
 				this.Lasers.add(new Laser(new jSprite(new Vector2(this.Position.x + this.getSpeedFromRotation(1, 13).x, this.Position.y + this.getSpeedFromRotation(1, 13).y), this.Rotation, this.getSpeedFromRotation(1, this.LaserSpeed), this.LaserTexture), this));
 				this.ShotTimer = 0;
