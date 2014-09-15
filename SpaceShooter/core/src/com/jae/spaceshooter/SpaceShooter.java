@@ -9,8 +9,6 @@ public class SpaceShooter extends Game
 {
 	public SpriteBatch batch;
 	public BitmapFont font;
-	public static int height = 480;
-	public static int width = 800;
 	
 	@Override
 	public void create () 

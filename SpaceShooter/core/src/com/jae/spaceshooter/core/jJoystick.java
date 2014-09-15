@@ -1,9 +1,9 @@
 package com.jae.spaceshooter.core;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.jae.spaceshooter.Settings;
 
 public class jJoystick 
 {
@@ -11,13 +11,21 @@ public class jJoystick
 	private jSprite centerPoint;
 	private Vector2 location;
 	private boolean isActive;
+	public boolean isFixed;
 	
-	public jJoystick(Texture knobTex, Texture pointTex)
+	public jJoystick(Texture knobTex, Texture pointTex, boolean fixed, Vector2 location)
 	{
 		this.centerKnob = new jSprite(knobTex);
 		this.centerPoint = new jSprite(pointTex);
-		this.location = new Vector2(0, 0);
+		this.location = location;
 		this.isActive = false;
+		this.isFixed = fixed;
+		
+		if(fixed)
+		{
+			this.centerKnob.Position = new Vector2(location.x, location.y);
+			this.centerPoint.Position = new Vector2(location.x, location.y);
+		}
 	}
 	
 	public void UpdateJoystick()
@@ -26,7 +34,7 @@ public class jJoystick
 		
 		for(int i = 0; i < 5; i++)
 		{
-			if(Gdx.input.isTouched(i) && Gdx.input.getX(i) < Gdx.graphics.getWidth() / 2)
+			if(TouchHandler.Data.get(i).isDown && TouchHandler.Data.get(i).x < Settings.width / 2)
 			{
 				touchInt = i;
 			}
@@ -34,55 +42,61 @@ public class jJoystick
 		
 		if(touchInt != -1)
 		{
-			if(!this.isActive && Gdx.input.isTouched(touchInt))
+			if(!this.isActive && !this.isFixed)
 			{
-				if(Gdx.input.getX(touchInt) < Gdx.graphics.getWidth() / 2)
-				{
-					this.isActive = true;
-					this.location = new Vector2(Gdx.input.getX(touchInt), Gdx.graphics.getHeight() - Gdx.input.getY(touchInt));
-					this.centerPoint.Position = new Vector2(this.location);
-					this.centerKnob.Position = new Vector2(this.location);
-				}
+				this.isActive = true;
+				this.location = new Vector2(TouchHandler.Data.get(touchInt).x, TouchHandler.Data.get(touchInt).y);
+				this.centerPoint.Position = new Vector2(this.location);
+				this.centerKnob.Position = new Vector2(this.location);
 			}
 			
-			if(this.isActive)
+			if(this.isActive || this.isFixed)
 			{
-				this.centerKnob.Position.x = Gdx.input.getX(touchInt);
-				if(this.centerKnob.Position.x - this.centerPoint.Position.x > 75)
+				this.centerKnob.Position.x = TouchHandler.Data.get(touchInt).x;
+				if(this.centerKnob.Position.x - this.centerPoint.Position.x > Settings.joystickRadius)
 				{
-					this.centerKnob.Position.x = this.centerPoint.Position.x + 75;
+					this.centerKnob.Position.x = this.centerPoint.Position.x + Settings.joystickRadius;
 				}
-				else if(this.centerPoint.Position.x - this.centerKnob.Position.x > 75)
+				else if(this.centerPoint.Position.x - this.centerKnob.Position.x > Settings.joystickRadius)
 				{
-					this.centerKnob.Position.x = this.centerPoint.Position.x - 75;
+					this.centerKnob.Position.x = this.centerPoint.Position.x - Settings.joystickRadius;
 				}
 				
-				this.centerKnob.Position.y = Gdx.graphics.getHeight() - Gdx.input.getY(touchInt);
-				if(this.centerKnob.Position.y - this.centerPoint.Position.y > 75)
+				this.centerKnob.Position.y = TouchHandler.Data.get(touchInt).y;
+				if(this.centerKnob.Position.y - this.centerPoint.Position.y > Settings.joystickRadius)
 				{
-					this.centerKnob.Position.y = this.centerPoint.Position.y + 75;
+					this.centerKnob.Position.y = this.centerPoint.Position.y + Settings.joystickRadius;
 				}
-				else if(this.centerPoint.Position.y - this.centerKnob.Position.y > 75)
+				else if(this.centerPoint.Position.y - this.centerKnob.Position.y > Settings.joystickRadius)
 				{
-					this.centerKnob.Position.y = this.centerPoint.Position.y - 75;
+					this.centerKnob.Position.y = this.centerPoint.Position.y - Settings.joystickRadius;
 				}
 			}
 		}
 		else
 		{
-			if(this.isActive)
+			if(this.isFixed)
 			{
-				this.isActive = false;
+				this.centerKnob.Position = this.location;
+			}
+			else
+			{
+				if(this.isActive)
+				{
+					this.isActive = false;
+				}
 			}
 		}
 	}
 	
 	public void DrawJoystick(SpriteBatch batch)
 	{
-		if(this.isActive)
+		if(this.isActive || this.isFixed)
 		{
 			this.centerPoint.Draw(batch);
 			this.centerKnob.Draw(batch);
+			
+			System.out.println(this.centerPoint.Position.x);
 		}
 	}
 	
@@ -90,6 +104,6 @@ public class jJoystick
 	{
 		float x = this.centerKnob.Position.x - this.location.x;
 		float y = this.centerKnob.Position.y - this.location.y;
-		return this.isActive ? new Vector2(x, y) : null;
+		return (this.isActive || this.isFixed) ? new Vector2(x, y) : null;
 	}
 }

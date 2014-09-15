@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Texture;
-import com.jae.spaceshooter.SpaceShooter;
+import com.jae.spaceshooter.Settings;
 import com.jae.spaceshooter.screens.GameScreen;
 
 public class Ship extends jSprite
@@ -44,8 +44,6 @@ public class Ship extends jSprite
 					this.Lasers.get(i).Texture.getWidth(), this.Lasers.get(i).Texture.getHeight(), this.Lasers.get(i).Scale.x, this.Lasers.get(i).Scale.y, 
 	    			(float)Math.toDegrees(this.Lasers.get(i).Rotation) - 90, 0, 0, 
 	    			this.Lasers.get(i).Texture.getWidth(), this.Lasers.get(i).Texture.getHeight(), false, false);
-			
-			System.out.println(this.Lasers.size());
 		}
 	}
 	
@@ -121,7 +119,7 @@ public class Ship extends jSprite
 		
 		for(int i = 0; i < 5; i++)
 		{
-			if(TouchHandler.GetData().get(i).isDown && TouchHandler.GetData().get(i).x > SpaceShooter.width / 2)
+			if(TouchHandler.Data.get(i).isDown && TouchHandler.Data.get(i).x > Settings.width / 2)
 			{
 				touchInt = i;
 			}
@@ -129,7 +127,7 @@ public class Ship extends jSprite
 		
 		if(touchInt != -1)
 		{
-			if(TouchHandler.GetData().get(touchInt).isDown && this.ShotTimer > this.ShotInterval)
+			if(TouchHandler.Data.get(touchInt).isDown && this.ShotTimer > this.ShotInterval)
 			{
 				this.Lasers.add(new Laser(new jSprite(new Vector2(this.Position.x + this.getSpeedFromRotation(1, 13).x, this.Position.y + this.getSpeedFromRotation(1, 13).y), this.Rotation, this.getSpeedFromRotation(1, this.LaserSpeed), this.LaserTexture), this));
 				this.ShotTimer = 0;
@@ -180,21 +178,21 @@ public class Ship extends jSprite
 		Vector2 speed = this.getSpeedFromRotation(deltaTime, this.CurrentSpeed);
 		this.Move(speed.x, speed.y);
 		
-		if(this.Position.x > SpaceShooter.width)
+		if(this.Position.x > Settings.width)
 		{
 			this.Position.x = 0;
 		}
 		else if(this.Position.x < 0)
 		{
-			this.Position.x = SpaceShooter.width;
+			this.Position.x = Settings.width;
 		}
-		if(this.Position.y > SpaceShooter.height)
+		if(this.Position.y > Settings.height)
 		{
 			this.Position.y = 0;
 		}
 		else if(this.Position.y < 0)
 		{
-			this.Position.y = SpaceShooter.height;
+			this.Position.y = Settings.height;
 		}
 		
 		this.ShotTimer += deltaTime;

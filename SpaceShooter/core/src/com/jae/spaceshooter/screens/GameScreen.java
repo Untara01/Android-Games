@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.jae.spaceshooter.Settings;
 import com.jae.spaceshooter.SpaceShooter;
 import com.jae.spaceshooter.core.Ship;
+import com.jae.spaceshooter.core.TouchHandler;
 import com.jae.spaceshooter.core.jJoystick;
 import com.jae.spaceshooter.core.jSprite;
 
@@ -62,10 +64,10 @@ public class GameScreen implements Screen
 		this.Ship1.Position = new Vector2(400, 240);
 		
 		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, SpaceShooter.width, SpaceShooter.height);
-		this.viewport = new StretchViewport(SpaceShooter.width, SpaceShooter.height, camera);
+		this.camera.setToOrtho(false, Settings.width, Settings.height);
+		this.viewport = new StretchViewport(Settings.width, Settings.height, camera);
         
-        this.joystick = new jJoystick(this.centerKnob, this.centerPoint);
+        this.joystick = new jJoystick(this.centerKnob, this.centerPoint, Settings.isJoystickFixed, Settings.joystickLocation);//Settings.joystickLocation);
 	}
 	
 	@Override
@@ -79,6 +81,7 @@ public class GameScreen implements Screen
 	{
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		
+		TouchHandler.SetData();
 		this.Ship1.UpdateShip(deltaTime, this.joystick);
 		this.joystick.UpdateJoystick();
 	}
