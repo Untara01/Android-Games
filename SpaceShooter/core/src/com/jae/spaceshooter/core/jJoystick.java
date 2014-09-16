@@ -95,8 +95,6 @@ public class jJoystick
 		{
 			this.centerPoint.Draw(batch);
 			this.centerKnob.Draw(batch);
-			
-			System.out.println(this.centerPoint.Position.x);
 		}
 	}
 	
