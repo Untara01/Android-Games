@@ -1,0 +1,22 @@
+package com.jgames.lightspeed.client;
+
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.backends.gwt.GwtApplication;
+import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
+import com.jgames.lightspeed.LightSpeed;
+
+public class HtmlLauncher extends GwtApplication 
+{
+
+        @Override
+        public GwtApplicationConfiguration getConfig () 
+        {
+                return new GwtApplicationConfiguration(800, 480);
+        }
+
+        @Override
+        public ApplicationListener getApplicationListener () 
+        {
+                return new LightSpeed();
+        }
+}
