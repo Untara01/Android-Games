@@ -37,13 +37,13 @@ public class LightSpeed extends Game
 		this.normalFont = new BitmapFont();
 		
 		this.splashScreen = new SplashScreen();
-		this.mainMenuScreen = new MainMenuScreen();
+		this.mainMenuScreen = new MainMenuScreen(this);
 		this.gameScreen = new GameScreen();
 		this.optionsScreen = new OptionsScreen(this);
 		this.shopScreen = new ShopScreen();
 		this.selectScreen = new SelectScreen();
 		
-		this.setScreen(this.optionsScreen);
+		this.setScreen(this.mainMenuScreen);
 	}
 
 	public void render () 
