@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Sprite 
 {
-	//degrees
+	//radians
     public float Rotation;
     public float RotationalVelocity;
     public Rectangle BoundingBox;
@@ -81,7 +81,7 @@ public class Sprite
     {
     	batch.draw(this.Texture, 
     			this.BoundingBox.x, this.BoundingBox.y, this.Origin.x, this.Origin.y, 
-    			this.Texture.getWidth(), this.Texture.getHeight(), this.Scale.x, this.Scale.y, 
+    			this.BoundingBox.width, this.BoundingBox.height, this.Scale.x, this.Scale.y, 
     			(float)Math.toDegrees(this.Rotation) - 90, 0, 0, 
     			this.Texture.getWidth(), this.Texture.getHeight(), false, false);
     }

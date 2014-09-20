@@ -38,7 +38,7 @@ public class LightSpeed extends Game
 		
 		this.splashScreen = new SplashScreen();
 		this.mainMenuScreen = new MainMenuScreen(this);
-		this.gameScreen = new GameScreen();
+		this.gameScreen = new GameScreen(this);
 		this.optionsScreen = new OptionsScreen(this);
 		this.shopScreen = new ShopScreen();
 		this.selectScreen = new SelectScreen();

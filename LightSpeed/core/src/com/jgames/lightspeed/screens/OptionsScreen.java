@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.data.Settings;
-import com.jgames.lightspeed.ui.Label;
-import com.jgames.lightspeed.ui.Textbox;
+import com.jgames.lightspeed.graphics.ui.Label;
+import com.jgames.lightspeed.graphics.ui.Textbox;
 
 public class OptionsScreen implements Screen
 {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jgames.lightspeed.LightSpeed;
-import com.jgames.lightspeed.ui.Label;
+import com.jgames.lightspeed.graphics.ui.Label;
 
 public class SplashScreen implements Screen
 {
