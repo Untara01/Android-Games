@@ -16,15 +16,14 @@ public class Label extends Sprite
 			String Text, BitmapFont Font) 
 	{
 		super(Position, Rotation, Texture);
-		this.BoundingBox.setWidth(Font.getBounds(Text).width);
-		this.BoundingBox.setHeight(Font.getLineHeight());
+		this.SetDimensions(Font.getBounds(Text).width, Font.getLineHeight());
 		this.text = Text;
 		this.font = Font;
 	}
 	
 	public void Draw(SpriteBatch batch)
 	{
-		this.font.draw(batch, text, this.BoundingBox.x, this.BoundingBox.y);
+		this.font.draw(batch, text, this.GetDimensions().x, this.GetDimensions().y);
 	}
 	
 	public boolean LabelUpdate()

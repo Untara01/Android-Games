@@ -1,6 +1,7 @@
 package com.jgames.lightspeed.graphics;
 
 import com.badlogic.gdx.math.Vector2;
+import com.jgames.lightspeed.LightSpeed;
 
 public class MovingSprite extends Sprite
 {
@@ -22,8 +23,7 @@ public class MovingSprite extends Sprite
 	
 	public void move()
 	{
-		this.BoundingBox.x += this.Speed.x;
-		this.BoundingBox.y += this.Speed.y;
+		this.SetLocation(this.GetLocation().x + this.Speed.x, this.GetLocation().y + this.Speed.y);
 	}
 	
 	public void update()
@@ -38,5 +38,15 @@ public class MovingSprite extends Sprite
 		speed.y *= elapsedTime * iSpeed;
 		
 		return speed;
+	}
+	
+	public boolean isOnScreen()
+	{
+		if(this.GetLocation().x > LightSpeed.screenWidth || this.GetLocation().x < 0 || this.GetLocation().y > LightSpeed.screenHeight || this.GetLocation().y < 0)
+		{
+			return false;
+		}
+		
+		return true;
 	}
 }

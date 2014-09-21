@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Texture;
+import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.graphics.MovingSprite;
 import com.jgames.lightspeed.graphics.Sprite;
 import com.jgames.lightspeed.screens.GameScreen;
@@ -74,7 +75,7 @@ public class Ship extends MovingSprite
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE) && this.ShotTimer > this.ShotInterval)
 		{
-			this.Lasers.add(new Laser(new MovingSprite(new Sprite(new Vector2(this.BoundingBox.x + this.Origin.x, this.BoundingBox.y + this.Origin.x), this.Rotation, this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed)));
+			this.Lasers.add(new Laser(new MovingSprite(new Sprite(new Vector2(this.GetLocation().x, this.GetLocation().y), this.Rotation, this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed)));
 			this.ShotTimer = 0;
 		}
 		
@@ -90,21 +91,21 @@ public class Ship extends MovingSprite
 		this.Speed = this.getSpeedFromRotation(deltaTime, this.CurrentSpeed);
 		this.move();
 		
-		if(this.BoundingBox.x > Gdx.graphics.getWidth())
+		if(this.GetLocation().x > LightSpeed.screenWidth)
 		{
-			this.BoundingBox.x = 0;
+			this.SetLocation(0, this.GetLocation().y);
 		}
-		else if(this.BoundingBox.x < 0)
+		else if(this.GetLocation().x < 0)
 		{
-			this.BoundingBox.x = Gdx.graphics.getWidth();
+			this.SetLocation(LightSpeed.screenWidth, this.GetLocation().y);;
 		}
-		if(this.BoundingBox.y > Gdx.graphics.getHeight())
+		if(this.GetLocation().y > LightSpeed.screenHeight)
 		{
-			this.BoundingBox.y = 0;
+			this.SetLocation(this.GetLocation().x, 0);
 		}
-		else if(this.BoundingBox.y < 0)
+		else if(this.GetLocation().y < 0)
 		{
-			this.BoundingBox.y = Gdx.graphics.getHeight();
+			this.SetLocation(this.GetLocation().x, LightSpeed.screenHeight);
 		}
 		
 		this.ShotTimer += deltaTime;

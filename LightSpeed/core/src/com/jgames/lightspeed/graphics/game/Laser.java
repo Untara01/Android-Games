@@ -1,7 +1,5 @@
 package com.jgames.lightspeed.graphics.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.jgames.lightspeed.graphics.MovingSprite;
 
@@ -20,12 +18,6 @@ public class Laser extends MovingSprite
 	{
 		this.update();
 		
-		Rectangle screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		if(this.BoundingBox.x > screenBounds.getWidth() || this.BoundingBox.x < 0 || this.BoundingBox.y > screenBounds.getHeight() || this.BoundingBox.y < 0)
-		{
-			return false;
-		}
-		
-		return true;
+		return this.isOnScreen();
 	}
 }
