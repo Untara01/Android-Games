@@ -3,14 +3,14 @@ package com.jgames.lightspeed.graphics.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Texture;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.graphics.MovingSprite;
 import com.jgames.lightspeed.graphics.Sprite;
+import com.jgames.lightspeed.input.Joystick;
+import com.jgames.lightspeed.input.TouchHandler;
 import com.jgames.lightspeed.screens.GameScreen;
 
 public class Ship extends MovingSprite
@@ -45,17 +45,17 @@ public class Ship extends MovingSprite
 		}
 	}
 	
-	public void UpdateShip(float deltaTime)
+	public void UpdateShip(float deltaTime, boolean[] values)
 	{
-		if(Gdx.input.isKeyPressed(Keys.LEFT))
+		if(values[2])
 		{
 			this.Rotation += this.RotationSpeed * deltaTime;
 		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT))
+		if(values[3])
 		{
 			this.Rotation += -this.RotationSpeed * deltaTime;
 		}
-		if(Gdx.input.isKeyPressed(Keys.UP))
+		if(values[0])
 		{
 			this.CurrentSpeed += this.Acceleration * deltaTime;
 			
@@ -64,7 +64,7 @@ public class Ship extends MovingSprite
 				this.CurrentSpeed = this.MaxSpeed;
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.DOWN))
+		if(values[1])
 		{
 			this.CurrentSpeed -= this.Acceleration * deltaTime;
 			
@@ -73,7 +73,7 @@ public class Ship extends MovingSprite
 				this.CurrentSpeed = -this.MaxSpeed;
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE) && this.ShotTimer > this.ShotInterval)
+		if(values[4] && this.ShotTimer > this.ShotInterval)
 		{
 			this.Lasers.add(new Laser(new MovingSprite(new Sprite(new Vector2(this.GetLocation().x, this.GetLocation().y), this.Rotation, this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed)));
 			this.ShotTimer = 0;
@@ -109,5 +109,24 @@ public class Ship extends MovingSprite
 		}
 		
 		this.ShotTimer += deltaTime;
+	}
+	
+	public boolean[] GetInputs(Joystick joystick)
+	{
+		boolean forward = joystick.GetValues().y > 0;
+		boolean back = joystick.GetValues().y < 0;
+		boolean left = joystick.GetValues().x < 0;
+		boolean right = joystick.GetValues().x > 0;
+		boolean shoot = false;
+		
+		for(int i = 0; i < TouchHandler.Data.size(); i++)
+		{
+			if(TouchHandler.Data.get(i).isDown && TouchHandler.Data.get(i).x > LightSpeed.screenWidth / 2)
+			{
+				shoot = true;
+			}
+		}
+		
+		return new boolean[] {forward, back, left, right, shoot};
 	}
 }

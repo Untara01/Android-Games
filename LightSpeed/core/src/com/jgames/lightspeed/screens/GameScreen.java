@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.graphics.Sprite;
 import com.jgames.lightspeed.graphics.game.Ship;
+import com.jgames.lightspeed.input.Joystick;
 
 public class GameScreen implements Screen
 {
@@ -17,12 +18,16 @@ public class GameScreen implements Screen
 	public OrthographicCamera camera;
 	public StretchViewport viewport;
 	
+	public Joystick joystick;
+	
 	public Ship shipOne;
 	
 	public Texture shipYellow = new Texture(Gdx.files.internal("TeamYellow/ship.png"));
 	public Texture laserYellow = new Texture(Gdx.files.internal("TeamYellow/laser.png"));
 	
 	public Texture background = new Texture(Gdx.files.internal("GameBackground.png"));
+	public Texture joystickPoint = new Texture(Gdx.files.internal("UI/Joystick/centerPoint.png"));
+	public Texture joystickKnob = new Texture(Gdx.files.internal("UI/Joystick/centerKnob.png"));
 	
 	public GameScreen(LightSpeed game)
 	{
@@ -32,6 +37,7 @@ public class GameScreen implements Screen
 		this.viewport = new StretchViewport(LightSpeed.screenWidth, LightSpeed.screenHeight, this.camera);
 		
 		this.shipOne = new Ship(new Sprite(new Vector2(400, 240), 0f, this.shipYellow), this.laserYellow, this);
+		this.joystick = new Joystick(joystickKnob, joystickPoint);
 	}
 	
 	@Override
@@ -47,13 +53,18 @@ public class GameScreen implements Screen
         this.game.batch.setProjectionMatrix(this.camera.combined);
         this.game.batch.begin();
         this.game.batch.draw(this.background, 0, 0);
+        
+        this.joystick.Draw(this.game.batch);
+        
         this.shipOne.DrawShip(this.game.batch);
         this.game.batch.end();
 	}
 	
 	public void update()
 	{
-		this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime());
+		this.joystick.Update();
+		
+		this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime(), this.shipOne.GetInputs(this.joystick));
 	}
 
 	@Override

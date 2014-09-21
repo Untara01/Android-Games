@@ -68,7 +68,7 @@ public class Sprite
     	this.Tint = Color.WHITE;
     	this.Scale = new Vector2(1, 1);
     	this.Origin = new Vector2(this.Texture.getWidth() / 2, this.Texture.getHeight() / 2);
-    	this.BoundingBox = new Rectangle(-this.Origin.x, -this.Origin.y, Texture.getWidth() - this.Origin.x, Texture.getHeight() - this.Origin.y);
+    	this.BoundingBox = new Rectangle(-this.Origin.x, -this.Origin.y, Texture.getWidth(), Texture.getHeight());
     }
     
     public Sprite(Vector2 Position, float Rotation, Texture Texture)

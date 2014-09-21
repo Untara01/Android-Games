@@ -1,6 +1,7 @@
 package com.jgames.lightspeed.input;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.data.Settings;
@@ -9,16 +10,19 @@ import com.jgames.lightspeed.graphics.Sprite;
 public class Joystick
 {
 	private Sprite knob;
+	private Texture pointTexture;
 	private Vector2 location;
 	private boolean isActive;
 	private Vector2 values;
 	
-	public Joystick(Texture knobTexture)
+	public Joystick(Texture knobTexture, Texture pointTexture)
 	{
 		this.knob = new Sprite(knobTexture);
+		this.pointTexture = pointTexture;
 		this.location = new Vector2(Settings.GetInstance().JOYSTICK_POSITION);
 		this.knob.SetLocation(this.location.x, this.location.y);
 		this.isActive = false;
+		this.values = new Vector2(0, 0);
 	}
 	
 	public void Update()
@@ -69,8 +73,28 @@ public class Joystick
 		this.values.x = this.knob.GetLocation().x - this.location.x;
 		this.values.y = this.knob.GetLocation().y - this.location.y;
 		
-		this.values.x = this.knob.GetLocation().x - this.location.x;
-		this.values.y = this.knob.GetLocation().y - this.location.y;
+		if(this.values.x > Settings.GetInstance().JOYSTICK_RADIUS)
+		{
+			this.knob.SetLocation(this.location.x + Settings.GetInstance().JOYSTICK_RADIUS, this.knob.GetLocation().y);
+		}
+		else if(this.values.x < -Settings.GetInstance().JOYSTICK_RADIUS)
+		{
+			this.knob.SetLocation(this.location.x - Settings.GetInstance().JOYSTICK_RADIUS, this.knob.GetLocation().y);
+		}
+		if(this.values.y > Settings.GetInstance().JOYSTICK_RADIUS)
+		{
+			this.knob.SetLocation(this.knob.GetLocation().x, this.location.y + Settings.GetInstance().JOYSTICK_RADIUS);
+		}
+		else if(this.values.y < -Settings.GetInstance().JOYSTICK_RADIUS)
+		{
+			this.knob.SetLocation(this.knob.GetLocation().x, this.location.y - Settings.GetInstance().JOYSTICK_RADIUS);
+		}
+	}
+	
+	public void Draw(SpriteBatch batch)
+	{
+		batch.draw(this.pointTexture, this.location.x - this.pointTexture.getWidth() / 2, this.location.y - this.pointTexture.getHeight() / 2);
+		this.knob.Draw(batch);
 	}
 	
 	public Vector2 GetValues()
