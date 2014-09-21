@@ -13,8 +13,6 @@ import com.jae.spaceshooter.screens.GameScreen;
 
 public class Ship extends jSprite
 {
-	Sprite sprite = new SPrite();
-	
 	public float MaxSpeed = 400f;
 	public float CurrentSpeed = 0f;
 	public float Acceleration = 800f;
