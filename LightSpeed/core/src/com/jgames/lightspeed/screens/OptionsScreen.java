@@ -1,15 +1,12 @@
 package com.jgames.lightspeed.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.data.Settings;
 import com.jgames.lightspeed.graphics.ui.Label;
-import com.jgames.lightspeed.graphics.ui.Textbox;
 
 public class OptionsScreen implements Screen
 {
@@ -18,10 +15,8 @@ public class OptionsScreen implements Screen
 	public OrthographicCamera camera;
 	public StretchViewport viewport;
 	
-	private Texture labelTexture = new Texture(Gdx.files.internal("UI/Blank.png"));
-	
-	private Label nameLabel;
-	private Textbox nameBox = new Textbox();
+	public Label labelName;
+	public Label joystickFixed;
 	
 	public OptionsScreen(LightSpeed game)
 	{
@@ -30,7 +25,8 @@ public class OptionsScreen implements Screen
 		this.camera.setToOrtho(false, LightSpeed.screenWidth, LightSpeed.screenHeight);
 		this.viewport = new StretchViewport(LightSpeed.screenWidth, LightSpeed.screenHeight, this.camera);
 		
-		this.nameLabel = new Label(new Vector2(100, 380), 0f, this.labelTexture, "Player Name", this.game.headingTwoFont);
+		this.labelName = new Label(new Vector2(80, 200), Settings.GetInstance().PLAYER_NAME, this.game.headingTwoFont);
+		this.joystickFixed = new Label(new Vector2(80, 160), "Joystick Fixed: " + Settings.GetInstance().JOYSTICK_FIXED, this.game.headingTwoFont);
 	}
 	
 	@Override
@@ -42,10 +38,23 @@ public class OptionsScreen implements Screen
 	
 	public void update()
 	{
-		if(this.nameLabel.LabelUpdate())
+		if(this.labelName.LabelUpdate())
 		{
-			Gdx.input.getTextInput(this.nameBox, "Player Name", "New Player");
-			Settings.GetInstance().SetPlayerName(this.nameBox.textValue);
+			this.game.setScreen(this.game.mainMenuScreen);
+		}
+		
+		if(this.joystickFixed.LabelUpdate())
+		{
+			if(Settings.GetInstance().JOYSTICK_FIXED)
+			{
+				Settings.GetInstance().SetJoystickFixed(false);
+			}
+			else
+			{
+				Settings.GetInstance().SetJoystickFixed(true);
+			}
+			
+			this.joystickFixed.text = "Joystick Fixed: " + Settings.GetInstance().JOYSTICK_FIXED;
 		}
 	}
 	
@@ -55,8 +64,10 @@ public class OptionsScreen implements Screen
 		this.game.batch.setProjectionMatrix(this.camera.combined);
 		
 		this.game.batch.begin();
-		this.game.normalFont.draw(this.game.batch, Settings.GetInstance().PLAYER_NAME, 50, 50);
-		this.nameLabel.Draw(this.game.batch);
+        this.game.batch.draw(LightSpeed.background, 0, 0);
+        
+		this.labelName.Draw(this.game.batch);
+		this.joystickFixed.Draw(this.game.batch);
 		this.game.batch.end();
 	}
 

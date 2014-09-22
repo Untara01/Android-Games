@@ -138,13 +138,6 @@ public class Sprite
     public boolean DoesIntersect(Vector2 vector)
     {
         Rectangle vectorBox = new Rectangle((int)vector.x, (int)vector.y, 1, 1);
-        System.out.println(vector.x);
-        System.out.println(vector.y);
-        System.out.println(this.BoundingBox.x);
-        System.out.println(this.BoundingBox.y);
-        System.out.println(this.BoundingBox.x + this.BoundingBox.width);
-        System.out.println(this.BoundingBox.y + this.BoundingBox.height);
-		System.out.println("Test Two");
 
         return this.DoesIntersect(vectorBox);
     }

@@ -25,7 +25,6 @@ public class GameScreen implements Screen
 	public Texture shipYellow = new Texture(Gdx.files.internal("TeamYellow/ship.png"));
 	public Texture laserYellow = new Texture(Gdx.files.internal("TeamYellow/laser.png"));
 	
-	public Texture background = new Texture(Gdx.files.internal("GameBackground.png"));
 	public Texture joystickPoint = new Texture(Gdx.files.internal("UI/Joystick/centerPoint.png"));
 	public Texture joystickKnob = new Texture(Gdx.files.internal("UI/Joystick/centerKnob.png"));
 	
@@ -52,7 +51,7 @@ public class GameScreen implements Screen
         this.camera.update();
         this.game.batch.setProjectionMatrix(this.camera.combined);
         this.game.batch.begin();
-        this.game.batch.draw(this.background, 0, 0);
+        this.game.batch.draw(LightSpeed.background, 0, 0);
         
         this.joystick.Draw(this.game.batch);
         

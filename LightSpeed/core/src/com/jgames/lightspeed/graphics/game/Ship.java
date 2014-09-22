@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.graphics.MovingSprite;
 import com.jgames.lightspeed.graphics.Sprite;
+import com.jgames.lightspeed.input.InputPair;
 import com.jgames.lightspeed.input.Joystick;
 import com.jgames.lightspeed.input.TouchHandler;
 import com.jgames.lightspeed.screens.GameScreen;
@@ -45,17 +46,9 @@ public class Ship extends MovingSprite
 		}
 	}
 	
-	public void UpdateShip(float deltaTime, boolean[] values)
+	public void UpdateShip(float deltaTime, float[] values)
 	{
-		if(values[2])
-		{
-			this.Rotation += this.RotationSpeed * deltaTime;
-		}
-		if(values[3])
-		{
-			this.Rotation += -this.RotationSpeed * deltaTime;
-		}
-		if(values[0])
+		if(values[1] != 0)
 		{
 			this.CurrentSpeed += this.Acceleration * deltaTime;
 			
@@ -64,16 +57,15 @@ public class Ship extends MovingSprite
 				this.CurrentSpeed = this.MaxSpeed;
 			}
 		}
-		if(values[1])
+		if(values[2])
 		{
-			this.CurrentSpeed -= this.Acceleration * deltaTime;
-			
-			if(this.CurrentSpeed < -this.MaxSpeed)
-			{
-				this.CurrentSpeed = -this.MaxSpeed;
-			}
+			this.Rotation += this.RotationSpeed * deltaTime;
 		}
-		if(values[4] && this.ShotTimer > this.ShotInterval)
+		if(values[3])
+		{
+			this.Rotation += -this.RotationSpeed * deltaTime;
+		}
+		if(values[2] == 1 && this.ShotTimer > this.ShotInterval)
 		{
 			this.Lasers.add(new Laser(new MovingSprite(new Sprite(new Vector2(this.GetLocation().x, this.GetLocation().y), this.Rotation, this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed)));
 			this.ShotTimer = 0;
@@ -111,22 +103,20 @@ public class Ship extends MovingSprite
 		this.ShotTimer += deltaTime;
 	}
 	
-	public boolean[] GetInputs(Joystick joystick)
+	public float[] GetInputs(Joystick joystick)
 	{
-		boolean forward = joystick.GetValues().y > 0;
-		boolean back = joystick.GetValues().y < 0;
-		boolean left = joystick.GetValues().x < 0;
-		boolean right = joystick.GetValues().x > 0;
-		boolean shoot = false;
+		float movement = joystick.GetValues().y / 75;
+		float rotation = joystick.GetValues().x / 75;
+		float shoot = 0;
 		
 		for(int i = 0; i < TouchHandler.Data.size(); i++)
 		{
 			if(TouchHandler.Data.get(i).isDown && TouchHandler.Data.get(i).x > LightSpeed.screenWidth / 2)
 			{
-				shoot = true;
+				shoot = 1;
 			}
 		}
 		
-		return new boolean[] {forward, back, left, right, shoot};
+		return new float[] {movement, rotation, shoot};
 	}
 }

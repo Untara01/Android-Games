@@ -93,8 +93,11 @@ public class Joystick
 	
 	public void Draw(SpriteBatch batch)
 	{
-		batch.draw(this.pointTexture, this.location.x - this.pointTexture.getWidth() / 2, this.location.y - this.pointTexture.getHeight() / 2);
-		this.knob.Draw(batch);
+		if(this.isActive || Settings.GetInstance().JOYSTICK_FIXED)
+		{
+			batch.draw(this.pointTexture, this.location.x - this.pointTexture.getWidth() / 2, this.location.y - this.pointTexture.getHeight() / 2);	
+			this.knob.Draw(batch);
+		}
 	}
 	
 	public Vector2 GetValues()

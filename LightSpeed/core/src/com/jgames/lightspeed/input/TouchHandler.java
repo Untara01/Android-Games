@@ -21,6 +21,7 @@ public class TouchHandler
 			float newY = ((float)Gdx.graphics.getHeight() - (float)Gdx.input.getY(i)) * ((float)LightSpeed.screenHeight / (float)Gdx.graphics.getHeight());
 			data.y = (int)newY;
 			data.isDown = Gdx.input.isTouched(i);
+			data.isDownBefore = Gdx.input.justTouched();
 			
 			Data.add(data);
 		}

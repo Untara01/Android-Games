@@ -39,7 +39,7 @@ public class MainMenuScreen implements Screen
         this.game.batch.setProjectionMatrix(this.camera.combined);
 
         this.game.batch.begin();
-        this.game.normalFont.draw(this.game.batch, "Welcome to LightSpeed!", 100, 150);
+        this.game.normalFont.draw(this.game.batch, "Welcome to Light Speed!", 100, 150);
         this.game.normalFont.draw(this.game.batch, "Tap anywhere to begin!", 100, 100);
         this.game.batch.end();
 	}
@@ -48,7 +48,7 @@ public class MainMenuScreen implements Screen
 	{
 		for(int i = 0; i < TouchHandler.Data.size(); i++)
 		{
-			if(TouchHandler.Data.get(i).isDown)
+			if(TouchHandler.Data.get(i).isDownBefore)
 			{
 				this.game.setScreen(this.game.gameScreen);
 				this.dispose();

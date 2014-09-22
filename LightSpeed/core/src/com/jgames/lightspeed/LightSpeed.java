@@ -1,8 +1,11 @@
 package com.jgames.lightspeed;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.jgames.lightspeed.data.Settings;
 import com.jgames.lightspeed.input.TouchHandler;
 import com.jgames.lightspeed.screens.*;
 
@@ -13,6 +16,7 @@ public class LightSpeed extends Game
 	
 	public static final int screenWidth = 800;
 	public static final int screenHeight = 480;
+	public static Texture background;
 	
 	public BitmapFont headingOneFont;
 	public BitmapFont headingTwoFont;
@@ -43,13 +47,27 @@ public class LightSpeed extends Game
 		this.shopScreen = new ShopScreen();
 		this.selectScreen = new SelectScreen();
 		
-		this.setScreen(this.mainMenuScreen);
+		LightSpeed.background = new Texture(Gdx.files.internal("GameBackground.png"));
+		
+		Settings.GetInstance();
+		
+		this.setScreen(this.optionsScreen);
 	}
 
-	public void render () 
+	public void render() 
 	{
 		this.touchHandler.SetData();
 		super.render();
+	}
+	
+	public static float convertToScreenWidth(float x)
+	{
+		return (x * LightSpeed.screenWidth) / Gdx.graphics.getWidth();
+	}
+	
+	public static float convertToScreenHeight(float y)
+	{
+		return (y * LightSpeed.screenHeight) / Gdx.graphics.getHeight();
 	}
 	
 	public void dispose()

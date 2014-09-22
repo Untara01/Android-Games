@@ -41,37 +41,51 @@ public class Settings
 	public void SetSFXVolume(float value)
 	{
 		this.preferences.putFloat("sfxVolume", value);
+		this.SFX_VOLUME = value;
+		this.preferences.flush();
 	}
 	
 	public void SetMusicVolume(float value)
 	{
 		this.preferences.putFloat("musicVolume", value);
+		this.MUSIC_VOLUME = value;
+		this.preferences.flush();
 	}
 
 	public void SetJoystickFixed(boolean value)
 	{
 		this.preferences.putBoolean("joystickFixed", value);
+		this.JOYSTICK_FIXED = value;
+		this.preferences.flush();
 	}
 	
 	public void SetJoystickPosition(Vector2 value)
 	{
 		this.preferences.putFloat("joystickPositionX", value.x);
 		this.preferences.putFloat("joystickPositionY", value.y);
+		this.JOYSTICK_POSITION = value;
+		this.preferences.flush();
 	}
 
 	public void SetJoystickRadius(int value)
 	{
 		this.preferences.putInteger("joystickRadius", value);
+		this.JOYSTICK_RADIUS = value;
+		this.preferences.flush();
 	}
 
 	public void SetPlayerName(String value)
 	{
 		this.preferences.putString("playerName", value);
+		this.PLAYER_NAME = value;
+		this.preferences.flush();
 	}
 	
 	public void SetClassNumber(int value)
 	{
 		this.preferences.putInteger("classNumber", value);
+		this.CLASS_NUMBER = value;
+		this.preferences.flush();
 	}
 	
 	public static Settings GetInstance()
