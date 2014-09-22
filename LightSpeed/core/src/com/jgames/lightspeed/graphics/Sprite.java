@@ -93,7 +93,7 @@ public class Sprite
         this.BoundingBox = new Rectangle(Position.x - this.GetScaledOrigin().x, Position.y - this.GetScaledOrigin().x, Texture.getWidth() * Scale.x, Texture.getHeight() * Scale.y);
     }
 
-    public Sprite(Vector2 Position, float Rotation, float RotationalVelocity, Texture Texture, Color Tint, Vector2 Scale, Rectangle SourceRectangle, Vector2 Origin)
+    public Sprite(Vector2 Position, float Rotation, float RotationalVelocity, Texture Texture, Color Tint, Vector2 Scale, Vector2 Origin)
     {
         this.Rotation = Rotation;
         this.RotationalVelocity = RotationalVelocity;
@@ -135,10 +135,13 @@ public class Sprite
         return this.DoesIntersect(sprite.BoundingBox);
     }
 
-    public boolean DoesIntersect(Vector2 vector)
+    public boolean DoesIntersect(float x, float y)
     {
-        Rectangle vectorBox = new Rectangle((int)vector.x, (int)vector.y, 1, 1);
-
-        return this.DoesIntersect(vectorBox);
+        if(x > this.BoundingBox.x && x < this.BoundingBox.x + this.BoundingBox.width && y > this.BoundingBox.y && y < this.BoundingBox.y + this.BoundingBox.height)
+        {
+        	return true;
+        }
+        
+        return false;
     }
 }

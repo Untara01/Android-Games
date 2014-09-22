@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.graphics.MovingSprite;
 import com.jgames.lightspeed.graphics.Sprite;
-import com.jgames.lightspeed.input.InputPair;
 import com.jgames.lightspeed.input.Joystick;
 import com.jgames.lightspeed.input.TouchHandler;
 import com.jgames.lightspeed.screens.GameScreen;
@@ -48,22 +47,22 @@ public class Ship extends MovingSprite
 	
 	public void UpdateShip(float deltaTime, float[] values)
 	{
-		if(values[1] != 0)
+		if(values[0] != 0)
 		{
-			this.CurrentSpeed += this.Acceleration * deltaTime;
+			this.CurrentSpeed += this.Acceleration * deltaTime * values[0];
 			
 			if(this.CurrentSpeed > this.MaxSpeed)
 			{
 				this.CurrentSpeed = this.MaxSpeed;
 			}
+			else if(this.CurrentSpeed < -this.MaxSpeed)
+			{
+				this.CurrentSpeed = -this.MaxSpeed;
+			}
 		}
-		if(values[2])
+		if(values[1] != 0)
 		{
-			this.Rotation += this.RotationSpeed * deltaTime;
-		}
-		if(values[3])
-		{
-			this.Rotation += -this.RotationSpeed * deltaTime;
+			this.Rotation += this.RotationSpeed * deltaTime * values[1];
 		}
 		if(values[2] == 1 && this.ShotTimer > this.ShotInterval)
 		{
@@ -106,7 +105,7 @@ public class Ship extends MovingSprite
 	public float[] GetInputs(Joystick joystick)
 	{
 		float movement = joystick.GetValues().y / 75;
-		float rotation = joystick.GetValues().x / 75;
+		float rotation = -joystick.GetValues().x / 75;
 		float shoot = 0;
 		
 		for(int i = 0; i < TouchHandler.Data.size(); i++)
