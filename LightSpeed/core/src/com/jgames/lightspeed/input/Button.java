@@ -4,14 +4,14 @@ import com.jgames.lightspeed.graphics.Sprite;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Button extends Sprite
 {
-	private String text = null;
+	public String text = null;
 	private BitmapFont font = null;
+	Vector2 textDimensions = new Vector2(0, 0);
 	
 	public Button(Texture Texture, Vector2 Location) 
 	{
@@ -26,6 +26,8 @@ public class Button extends Sprite
 		
 		this.text = text;
 		this.font = font;
+		
+		this.textDimensions = new Vector2(this.font.getBounds(this.text).width, this.font.getBounds(this.text).height);
 	}
 	
 	public Button(Vector2 Position, float Rotation, Texture Texture, Color Tint, Vector2 Scale,
@@ -35,6 +37,8 @@ public class Button extends Sprite
 		
 		this.text = text;
 		this.font = font;
+		
+		this.textDimensions = new Vector2(this.font.getBounds(this.text).width, this.font.getBounds(this.text).height);
 	}
 	
 	@Override
@@ -44,7 +48,7 @@ public class Button extends Sprite
 		
 		if(this.text != null)
 		{
-			this.font.drawWrapped(batch, this.text, this.GetLocation().x - this.Origin.x, this.GetLocation().y - this.Origin.y, this.GetDimensions().x, HAlignment.CENTER);
+			this.font.draw(batch, this.text, this.GetLocation().x - this.textDimensions.x / 2, this.GetLocation().y + this.textDimensions.y / 2);
 		}
 	}
 	

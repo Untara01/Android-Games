@@ -15,6 +15,7 @@ public class Settings
 	public Vector2 JOYSTICK_POSITION = new Vector2(0, 0);
 	public int JOYSTICK_RADIUS = 75;
 	public String PLAYER_NAME = "New Player";
+	public boolean FRIENDLY_FIRE = false;
 	
 	public int CLASS_NUMBER = 1;
 	
@@ -35,6 +36,8 @@ public class Settings
 		this.JOYSTICK_POSITION.y = this.preferences.getFloat("joystickPositionY", 100);
 		this.JOYSTICK_RADIUS = this.preferences.getInteger("joystickRadius", 75);
 		this.PLAYER_NAME = this.preferences.getString("playerName", "New Player");
+		this.FRIENDLY_FIRE = this.preferences.getBoolean("friendlyFire", false);
+		
 		this.CLASS_NUMBER = this.preferences.getInteger("classNumber", 1);
 	}
 	
@@ -78,6 +81,13 @@ public class Settings
 	{
 		this.preferences.putString("playerName", value);
 		this.PLAYER_NAME = value;
+		this.preferences.flush();
+	}
+	
+	public void SetFriendlyFire(boolean value)
+	{
+		this.preferences.putBoolean("friendlyFire", value);
+		this.FRIENDLY_FIRE = value;
 		this.preferences.flush();
 	}
 	
