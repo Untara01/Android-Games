@@ -52,6 +52,7 @@ public class Settings
 	{
 		this.preferences.putFloat("musicVolume", value);
 		this.MUSIC_VOLUME = value;
+		
 		this.preferences.flush();
 	}
 

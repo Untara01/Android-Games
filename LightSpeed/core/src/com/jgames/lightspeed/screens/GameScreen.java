@@ -15,12 +15,21 @@ public class GameScreen implements Screen
 {
 	private LightSpeed game;
 	
-	public OrthographicCamera camera;
-	public StretchViewport viewport;
+	private static enum GameState
+	{
+		GAME_PREP,
+		GAME_RUNNING,
+		GAME_PAUSED,
+		GAME_OVER
+	}
 	
-	public Joystick joystick;
+	private GameState state;
+	private OrthographicCamera camera;
+	private StretchViewport viewport;
 	
-	public Ship shipOne;
+	private Joystick joystick;
+	
+	private Ship shipOne;
 	
 	public Texture shipYellow = new Texture(Gdx.files.internal("TeamYellow/ship.png"));
 	public Texture laserYellow = new Texture(Gdx.files.internal("TeamYellow/laser.png"));
@@ -61,9 +70,46 @@ public class GameScreen implements Screen
 	
 	public void update()
 	{
+		switch(this.state)
+		{
+			case GAME_PREP:
+				this.updatePrep();
+				break;
+				
+			case GAME_RUNNING:
+				this.updateRunning();
+				break;
+				
+			case GAME_PAUSED:
+				this.updatePaused();
+				break;
+				
+			case GAME_OVER:
+				this.updateOver();
+				break;
+		}
+	}
+	
+	private void updatePrep()
+	{
+		
+	}
+	
+	private void updateRunning()
+	{
 		this.joystick.Update();
 		
 		this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime(), this.shipOne.GetInputs(this.joystick));
+	}
+	
+	private void updatePaused()
+	{
+		
+	}
+	
+	private void updateOver()
+	{
+		
 	}
 
 	@Override

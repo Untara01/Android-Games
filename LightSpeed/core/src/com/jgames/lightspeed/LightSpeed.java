@@ -47,8 +47,6 @@ public class LightSpeed extends Game
 		this.shopScreen = new ShopScreen();
 		this.selectScreen = new SelectScreen();
 		
-		LightSpeed.background = new Texture(Gdx.files.internal("GameBackground.png"));
-		
 		Settings.GetInstance();
 		
 		this.setScreen(this.optionsScreen);
