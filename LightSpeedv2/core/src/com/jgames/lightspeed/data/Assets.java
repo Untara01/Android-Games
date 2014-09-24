@@ -13,12 +13,10 @@ public class Assets
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
 
-	public static Texture items;
-	public static TextureRegion mainMenu;
-	public static TextureRegion pauseMenu;
-	public static TextureRegion ready;
-	public static TextureRegion gameOver;
-	public static TextureRegion highScoresRegion;
+	public static Texture buttons;
+	public static TextureRegion smallButton;
+	public static TextureRegion largeButton;
+	
 	public static TextureRegion logo;
 	public static TextureRegion soundOn;
 	public static TextureRegion soundOff;
@@ -42,27 +40,20 @@ public class Assets
 	public static Sound coinSound;
 	public static Sound clickSound;
 
-	public static Texture loadTexture (String file) {
+	public static Texture loadTexture (String file) 
+	{
 		return new Texture(Gdx.files.internal(file));
 	}
 
 	public static void load () 
 	{
-		Assets.background = loadTexture("data/background.png");
-		Assets.backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
-/*
-		Assets.items = loadTexture("data/items.png");
-		Assets.mainMenu = new TextureRegion(items, 0, 224, 300, 110);
-		Assets.pauseMenu = new TextureRegion(items, 224, 128, 192, 96);
-		Assets.ready = new TextureRegion(items, 320, 224, 192, 32);
-		Assets.gameOver = new TextureRegion(items, 352, 256, 160, 96);
-		Assets.highScoresRegion = new TextureRegion(Assets.items, 0, 257, 300, 110 / 3);
-		Assets.logo = new TextureRegion(items, 0, 352, 274, 142);
-		Assets.soundOff = new TextureRegion(items, 0, 0, 64, 64);
-		Assets.soundOn = new TextureRegion(items, 64, 0, 64, 64);
-		Assets.arrow = new TextureRegion(items, 0, 64, 64, 64);
-		Assets.pause = new TextureRegion(items, 64, 64, 64, 64);
+		Assets.background = loadTexture("GameBackground.png");
+		Assets.backgroundRegion = new TextureRegion(Assets.background, 0, 0, 800, 480);
 
+		Assets.buttons = loadTexture("ButtonSheet.png");
+		Assets.smallButton = new TextureRegion(Assets.buttons, 64, 0, 32, 16);
+		Assets.largeButton = new TextureRegion(Assets.buttons, 0, 0, 64, 16);
+/*
 		Assets.spring = new TextureRegion(items, 128, 0, 32, 32);
 		Assets.castle = new TextureRegion(items, 128, 64, 64, 64);
 		Assets.coinAnim = new Animation(0.2f, new TextureRegion(items, 128, 32, 32, 32), new TextureRegion(items, 160, 32, 32, 32),

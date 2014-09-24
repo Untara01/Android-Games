@@ -4,10 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jgames.lightspeed.data.Assets;
 import com.jgames.lightspeed.data.Settings;
+import com.jgames.lightspeed.screens.MainMenuScreen;
 
 public class LightSpeed extends Game 
 {
-	SpriteBatch batch;
+	public SpriteBatch batch;
+	public final static int screenWidth = 800;
+	public final static int screenHeight = 480;
 	
 	@Override
 	public void create () 
@@ -15,7 +18,7 @@ public class LightSpeed extends Game
 		this.batch = new SpriteBatch();
 		Settings.GetInstance();
 		Assets.load();
-		//this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
