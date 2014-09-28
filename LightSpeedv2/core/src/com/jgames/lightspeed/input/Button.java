@@ -18,8 +18,8 @@ public class Button extends Sprite
 	{
 		Vector2 textPos = new Vector2();
 		
-		textPos.x = this.getX() + (this.getOriginX() * this.getScaleX());
-		textPos.y = this.getY() + (this.getOriginY() * this.getScaleY());
+		textPos.x = this.getBoundingRectangle().x + (this.getBoundingRectangle().width / 2);
+		textPos.y = this.getBoundingRectangle().y + (this.getBoundingRectangle().height / 2);
 		
 		textPos.x -= this.textDimensions.x / 2;
 		textPos.y += this.textDimensions.y / 2;

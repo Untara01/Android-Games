@@ -11,43 +11,48 @@ import com.jgames.lightspeed.data.Assets;
 import com.jgames.lightspeed.data.Settings;
 import com.jgames.lightspeed.input.Button;
 
-public class MainMenuScreen extends ScreenAdapter
+public class OptionsScreen extends ScreenAdapter
 {
 	private LightSpeed game;
 	private OrthographicCamera camera;
 	
-	private Button playButton;
-	private Button optionsButton;
+	private Button backButton;
+	private Button fixedButton;
 	
-	public MainMenuScreen(LightSpeed game)
+	public OptionsScreen(LightSpeed game)
 	{
 		this.game = game;
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, LightSpeed.screenWidth, LightSpeed.screenHeight);
 		
-		this.playButton = new Button(new Vector2(100, 200), 0f, Assets.smallButton, Color.WHITE, 1.7f, 1.4f,
-				"Play", Assets.font);
-		this.optionsButton = new Button(new Vector2(100, 150), 0f, Assets.smallButton, Color.WHITE, 1.7f, 1.4f,
-				"Options", Assets.font);
+		this.backButton = new Button(new Vector2(30, 430), 0f, Assets.smallButton, Color.WHITE, 1.7f, 1.4f,
+				"Back", Assets.font);
+		
+		this.fixedButton = new Button(new Vector2(100, 150), 0f, Assets.smallButton, Color.WHITE, 2.5f, 1.4f,
+				"Joystick Fixed: " + Settings.GetInstance().JOYSTICK_FIXED, Assets.font);
 	}
 	
 	public void update()
 	{
-		if(playButton.update())
+		if(backButton.update())
 		{
-			this.game.setScreen(new GameScreen(game));
+			this.game.setScreen(new MainMenuScreen(this.game));
 			return;
 		}
-		if(optionsButton.update())
+		if(fixedButton.update())
 		{
-			this.game.setScreen(new OptionsScreen(game));
+			if(Settings.GetInstance().JOYSTICK_FIXED)
+			{
+				Settings.GetInstance().SetJoystickFixed(false);
+			}
+			else
+			{
+				Settings.GetInstance().SetJoystickFixed(true);
+			}
+			
+			this.fixedButton.text = "Joystick Fixed: " + Settings.GetInstance().JOYSTICK_FIXED;
 			return;
-		}/*
-		if(classButton.update())
-		{
-			//this.game.setScreen(new ClassScreen(game));
-			return;
-		}*/
+		}
 	}
 	
 	public void draw () 
@@ -65,8 +70,8 @@ public class MainMenuScreen extends ScreenAdapter
 
 		this.game.batch.enableBlending();
 		this.game.batch.begin();
-		this.playButton.draw(this.game.batch);
-		this.optionsButton.draw(this.game.batch);
+		this.backButton.draw(this.game.batch);
+		this.fixedButton.draw(this.game.batch);
 		this.game.batch.end();	
 	}
 	

@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.jgames.lightspeed.LightSpeed;
 import com.jgames.lightspeed.data.Assets;
 import com.jgames.lightspeed.data.Settings;
+import com.jgames.lightspeed.game.Ship;
 import com.jgames.lightspeed.input.Joystick;
 
 public class GameScreen extends ScreenAdapter
@@ -25,6 +26,8 @@ public class GameScreen extends ScreenAdapter
 	private GameState state;
 	private OrthographicCamera camera;
 	
+	Ship shipOne;
+	
 	private Joystick joystick;
 	
 	//private Ship shipOne;
@@ -37,7 +40,8 @@ public class GameScreen extends ScreenAdapter
 		
 		this.state = GameState.GAME_RUNNING;
 		
-		//this.shipOne = new Ship(new Sprite(new Vector2(400, 240), 0f, this.shipYellow), this.laserYellow, this);
+		this.shipOne = new Ship(new Sprite(Assets.shipYellow), Assets.laserYellow, this);
+		this.shipOne.setPosition(LightSpeed.screenWidth / 2 - 16, LightSpeed.screenHeight / 2 - 16);
 		this.joystick = new Joystick(Assets.joystickKnob, Assets.joystickPoint);
 	}
 	
@@ -58,12 +62,13 @@ public class GameScreen extends ScreenAdapter
 
 		this.game.batch.disableBlending();
 		this.game.batch.begin();
-		this.game.batch.draw(Assets.backgroundRegion, 0, 0, LightSpeed.screenWidth, LightSpeed.screenWidth);
+		this.game.batch.draw(Assets.background, 0, 0);
 		this.game.batch.end();
 
 		this.game.batch.enableBlending();
 		this.game.batch.begin();
 		this.joystick.Draw(this.game.batch);
+		this.shipOne.draw(this.game.batch);
 		this.game.batch.end();	
 	}
 	
@@ -98,7 +103,7 @@ public class GameScreen extends ScreenAdapter
 	{
 		this.joystick.Update();
 		
-		//this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime(), this.shipOne.GetInputs(this.joystick));
+		this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime(), this.shipOne.GetInputs(this.joystick));
 	}
 	
 	private void updatePaused()

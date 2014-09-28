@@ -54,8 +54,8 @@ public class Joystick
 				if(pointer != -1)
 				{
 					this.isActive = true;
-					this.location.x = TouchHandler.Data.get(pointer).x - this.knob.getOriginX();
-					this.location.y = TouchHandler.Data.get(pointer).y - this.knob.getOriginY();
+					this.location.x = TouchHandler.Data.get(pointer).x;
+					this.location.y = TouchHandler.Data.get(pointer).y;
 				}
 			}
 		}
@@ -102,9 +102,6 @@ public class Joystick
 		{
 			batch.draw(this.pointTexture, this.location.x - this.pointTexture.getRegionWidth() / 2, this.location.y - this.pointTexture.getRegionHeight() / 2);	
 			this.knob.draw(batch);
-			
-			System.out.println(this.values.x);
-			System.out.println(this.values.y);
 		}
 	}
 	
