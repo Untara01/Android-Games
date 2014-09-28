@@ -9,7 +9,7 @@ public class TouchHandler
 {
 	public static ArrayList<TouchData> Data = new ArrayList<TouchData>(); 
 	
-	public ArrayList<TouchData> SetData()
+	public static ArrayList<TouchData> SetData()
 	{
 		Data = new ArrayList<TouchData>();
 		

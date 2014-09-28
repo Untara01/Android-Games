@@ -34,7 +34,7 @@ public class MainMenuScreen extends ScreenAdapter
 	{
 		if(playButton.update())
 		{
-			//this.game.setScreen(new GameScreen(game));
+			this.game.setScreen(new GameScreen(game));
 			return;
 		}/*
 		if(optionsButton.update())
@@ -60,11 +60,11 @@ public class MainMenuScreen extends ScreenAdapter
 		this.game.batch.disableBlending();
 		this.game.batch.begin();
 		this.game.batch.draw(Assets.backgroundRegion, 0, 0, LightSpeed.screenWidth, LightSpeed.screenWidth);
-		this.playButton.draw(this.game.batch);
 		this.game.batch.end();
 
 		this.game.batch.enableBlending();
 		this.game.batch.begin();
+		this.playButton.draw(this.game.batch);
 		this.game.batch.end();	
 	}
 	

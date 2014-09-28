@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jgames.lightspeed.data.Assets;
 import com.jgames.lightspeed.data.Settings;
+import com.jgames.lightspeed.input.TouchHandler;
 import com.jgames.lightspeed.screens.MainMenuScreen;
 
 public class LightSpeed extends Game 
@@ -24,6 +25,8 @@ public class LightSpeed extends Game
 	@Override
 	public void render () 
 	{
+		TouchHandler.SetData();
+		
 		super.render();
 	}
 }
