@@ -15,18 +15,23 @@ public class Joystick
 	private boolean isActive;
 	private Vector2 values;
 	
+	private void setKnobPosition()
+	{
+		this.knob.setPosition(this.location.x - this.knob.getOriginX(), this.location.y - this.knob.getOriginY());
+	}
+	
 	public Joystick(TextureRegion knobTexture, TextureRegion pointTexture)
 	{
 		this.knob = new Sprite(knobTexture);
 		this.knob.setScale(1.5f);
 		this.pointTexture = pointTexture;
 		this.location = new Vector2(Settings.GetInstance().JOYSTICK_POSITION);
-		this.knob.setPosition(this.location.x - this.knob.getOriginX(), this.location.y - this.knob.getOriginY());
+		this.setKnobPosition();
 		this.isActive = false;
 		this.values = new Vector2(0, 0);
 	}
 	
-	public void Update()
+	public void update()
 	{
 		int pointer = -1;
 		
@@ -67,7 +72,7 @@ public class Joystick
 			}
 			else
 			{
-				this.knob.setPosition(this.location.x - this.knob.getOriginX(), this.location.y - this.knob.getOriginY());
+				this.setKnobPosition();
 			}
 		}
 		
@@ -77,35 +82,35 @@ public class Joystick
 		if(this.values.x > Settings.GetInstance().JOYSTICK_RADIUS)
 		{
 			this.knob.setX(this.location.x + Settings.GetInstance().JOYSTICK_RADIUS - this.knob.getOriginX());
-			this.values.x = this.knob.getX() - this.location.x;
+			this.values.x = this.knob.getX() + this.knob.getOriginX() - this.location.x;
 		}
 		else if(this.values.x < -Settings.GetInstance().JOYSTICK_RADIUS)
 		{
 			this.knob.setX(this.location.x - Settings.GetInstance().JOYSTICK_RADIUS - this.knob.getOriginX());
-			this.values.x = this.knob.getX() - this.location.x;
+			this.values.x = this.knob.getX() + this.knob.getOriginX() - this.location.x;
 		}
 		if(this.values.y > Settings.GetInstance().JOYSTICK_RADIUS)
 		{
 			this.knob.setY(this.location.y + Settings.GetInstance().JOYSTICK_RADIUS - this.knob.getOriginY());
-			this.values.y = this.knob.getY() - this.location.y;
+			this.values.y = this.knob.getY() + this.knob.getOriginY() - this.location.y;
 		}
 		else if(this.values.y < -Settings.GetInstance().JOYSTICK_RADIUS)
 		{
 			this.knob.setY(this.location.y - Settings.GetInstance().JOYSTICK_RADIUS - this.knob.getOriginY());
-			this.values.y = this.knob.getY() - this.location.y;
+			this.values.y = this.knob.getY() + this.knob.getOriginY() - this.location.y;
 		}
 	}
 	
-	public void Draw(SpriteBatch batch)
+	public void draw(SpriteBatch batch)
 	{
 		if(this.isActive || Settings.GetInstance().JOYSTICK_FIXED)
 		{
 			batch.draw(this.pointTexture, this.location.x - this.pointTexture.getRegionWidth() / 2, this.location.y - this.pointTexture.getRegionHeight() / 2);	
-			this.knob.draw(batch);
+			LightSpeed.drawSprite(this.knob, batch);
 		}
 	}
 	
-	public Vector2 GetValues()
+	public Vector2 getValues()
 	{
 		if(this.isActive || Settings.GetInstance().JOYSTICK_FIXED)
 		{

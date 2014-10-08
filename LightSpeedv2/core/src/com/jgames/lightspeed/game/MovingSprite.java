@@ -46,7 +46,7 @@ public class MovingSprite extends Sprite
 	{
 		if(this.getX() > LightSpeed.screenWidth || this.getX() < 0 || this.getY() > LightSpeed.screenHeight || this.getY() < 0)
 		{
-			return false;
+			//return false;
 		}
 		
 		return true;

@@ -67,8 +67,8 @@ public class GameScreen extends ScreenAdapter
 
 		this.game.batch.enableBlending();
 		this.game.batch.begin();
-		this.joystick.Draw(this.game.batch);
-		this.shipOne.draw(this.game.batch);
+		this.joystick.draw(this.game.batch);
+		this.shipOne.DrawShip(this.game.batch);
 		this.game.batch.end();	
 	}
 	
@@ -101,7 +101,7 @@ public class GameScreen extends ScreenAdapter
 	
 	private void updateRunning()
 	{
-		this.joystick.Update();
+		this.joystick.update();
 		
 		this.shipOne.UpdateShip(Gdx.graphics.getDeltaTime(), this.shipOne.GetInputs(this.joystick));
 	}

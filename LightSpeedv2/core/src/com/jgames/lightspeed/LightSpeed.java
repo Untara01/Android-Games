@@ -1,6 +1,7 @@
 package com.jgames.lightspeed;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jgames.lightspeed.data.Assets;
 import com.jgames.lightspeed.data.Settings;
@@ -28,5 +29,15 @@ public class LightSpeed extends Game
 		TouchHandler.SetData();
 		
 		super.render();
+	}
+	
+	public static void drawSprite(Sprite sprite, SpriteBatch batch)
+	{
+		batch.draw(sprite, 
+				sprite.getX(), sprite.getY(),
+				sprite.getOriginX(), sprite.getOriginY(), 
+				sprite.getRegionWidth(), sprite.getRegionHeight(),
+				sprite.getScaleX(), sprite.getScaleY(), 
+				sprite.getRotation());
 	}
 }

@@ -13,12 +13,12 @@ import com.jgames.lightspeed.screens.GameScreen;
 
 public class Ship extends MovingSprite
 {
-	public float MaxSpeed = 400f;
+	public float MaxSpeed = 450f;
 	public float CurrentSpeed = 0f;
 	public float Acceleration = 800f;
-	public float RotationSpeed = 3.5f;
+	public float RotationSpeed = 240f;
 	public float ShotTimer = 0;
-	public float ShotInterval = 0.2f;
+	public float ShotInterval = 0.3f;
 	public float LaserSpeed = 25f;
 	public GameScreen ThisScreen;
 	
@@ -35,7 +35,7 @@ public class Ship extends MovingSprite
 	
 	public void DrawShip(SpriteBatch batch)
 	{
-		this.draw(batch);
+		LightSpeed.drawSprite(this, batch);
 		
 		for(int i = 0; i < this.Lasers.size(); i++)
 		{
@@ -65,9 +65,11 @@ public class Ship extends MovingSprite
 		if(values[2] == 1 && this.ShotTimer > this.ShotInterval)
 		{
 			Laser laser = new Laser(new MovingSprite(new Sprite(this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed));
-			laser.setPosition(this.getX(), this.getY());
+			laser.setPosition(this.getX() + this.getOriginY(), this.getY() + this.getOriginX());
 			laser.setRotation(this.getRotation());
 			laser.Speed = this.getSpeedFromRotation(1, this.LaserSpeed);
+			this.Lasers.add(laser);
+			
 			this.ShotTimer = 0;
 		}
 		
@@ -105,8 +107,8 @@ public class Ship extends MovingSprite
 	
 	public float[] GetInputs(Joystick joystick)
 	{
-		float movement = joystick.GetValues().y / 75;
-		float rotation = -joystick.GetValues().x / 75;
+		float movement = joystick.getValues().y / 75;
+		float rotation = -joystick.getValues().x / 75;
 		float shoot = 0;
 		
 		for(int i = 0; i < TouchHandler.Data.size(); i++)
