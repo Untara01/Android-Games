@@ -39,7 +39,7 @@ public class Ship extends MovingSprite
 		
 		for(int i = 0; i < this.Lasers.size(); i++)
 		{
-			this.Lasers.get(i).draw(batch);
+			LightSpeed.drawSprite(this.Lasers.get(i), batch);
 		}
 	}
 	
@@ -65,8 +65,8 @@ public class Ship extends MovingSprite
 		if(values[2] == 1 && this.ShotTimer > this.ShotInterval)
 		{
 			Laser laser = new Laser(new MovingSprite(new Sprite(this.LaserTexture)), this, this.getSpeedFromRotation(1, this.LaserSpeed));
-			laser.setPosition(this.getX() + this.getOriginY(), this.getY() + this.getOriginX());
-			laser.setRotation(this.getRotation());
+			laser.setPosition(this.getX() + this.getOriginX() - laser.getOriginX() / 2, this.getY() + this.getOriginY() - laser.getOriginY() / 2);
+			laser.setRotation(this.getRotation() + 90);
 			laser.Speed = this.getSpeedFromRotation(1, this.LaserSpeed);
 			this.Lasers.add(laser);
 			

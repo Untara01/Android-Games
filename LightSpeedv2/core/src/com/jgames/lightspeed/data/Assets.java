@@ -49,13 +49,13 @@ public class Assets
 		
 		Assets.sprites = loadTexture("SpriteSheet.png");
 		Assets.shipYellow = new TextureRegion(Assets.sprites, 0, 0, 32, 32);
-		Assets.laserYellow = new TextureRegion(Assets.sprites, 32, 0, 7, 3);
+		Assets.laserYellow = new TextureRegion(Assets.sprites, 32, 0, 3, 7);
 		Assets.shipRed = new TextureRegion(Assets.sprites, 0, 96, 32, 32);
-		Assets.laserRed = new TextureRegion(Assets.sprites, 32, 3, 7, 3);
+		Assets.laserRed = new TextureRegion(Assets.sprites, 32, 7, 3, 7);
 		Assets.shipGreen = new TextureRegion(Assets.sprites, 0, 64, 32, 32);
-		Assets.laserGreen = new TextureRegion(Assets.sprites, 32, 6, 7, 3);
+		Assets.laserGreen = new TextureRegion(Assets.sprites, 32, 14, 3, 7);
 		Assets.shipBlue = new TextureRegion(Assets.sprites, 0, 32, 32, 32);
-		Assets.laserBlue = new TextureRegion(Assets.sprites, 32, 9, 7, 3);
+		Assets.laserBlue = new TextureRegion(Assets.sprites, 32, 21, 3, 7);
 
 		Assets.font = new BitmapFont();
 /*
